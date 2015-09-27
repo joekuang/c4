@@ -4,7 +4,7 @@ class CBoard {
 
 	private int[][] _board;
 	private int _first;
-	private int _turn;
+	protected int player;
 	private int _winner;
 	// private final int black = -1;
 	// private final int red = 1;
@@ -14,7 +14,7 @@ class CBoard {
 
 	CBoard() {
 		_board = new int[ROWS][COLUMNS];
-		_turn = _first = 1;
+		player = _first = 1;
 	}
 
 	int getPiece(int row, int col) {
@@ -23,30 +23,30 @@ class CBoard {
 
 	void newGame() {
 		_board = new int[ROWS][COLUMNS];
-		_first = 1 - 0;
-		_turn = _first;
+		player = _first = -1 * _first;
 		_winner = 0;
 	}
 
-	void placePiece(int piece, int row) {
-		checkrow(row);
-		int col = 0;
+	void switchPlayer() {
+		player = -1 * player;
+	}
 
-		for (int i = 0; i < _board[row].length; i++) {
-			if (_board[row][i] == 0) {
-				_board[row][i] = piece;
+
+	void placePiece(int col) {
+		for (int i = 0; i < ROWS; i++) {
+			if (_board[i][col] == 0) {
+				_board[i][col] = player;
 				col = i;
 				break;
 			}
 		}
-
-		_winner = checkWin(piece, col, row);
+		switchPlayer();
 	}
 
-	int checkWin(int piece, int col, int row) {
-		if (horizontalCheck(piece, col, row) ||
-				verticalCheck(piece, col, row) ||
-				diagonalCheck(piece, col, row)) {
+	int checkWin(int col, int row) {
+		if (horizontalCheck(col, row) ||
+				verticalCheck(col, row) ||
+				diagonalCheck(col, row)) {
 			return piece;
 		} else {
 			return 0;
