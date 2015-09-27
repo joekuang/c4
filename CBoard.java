@@ -31,27 +31,109 @@ class CBoard {
 			}
 		}
 
-		_winner = checkWin(row, col);
+		_winner = checkWin(piece, row, col);
 	}
 
 	int checkWin(int piece, int row, int col) {
-		if (horizontalCheck(row) ||
-				verticalCheck(col) ||
-				diagonalCheck(row, col)) {
+		if (horizontalCheck(piece, row, col) ||
+				verticalCheck(piece, row, col) ||
+				diagonalCheck(piece, row, col)) {
 			return piece;
 		} else {
 			return 0;
 		}
 	}
 
-	private boolean rowCheck(int row) {
-		
-	}
 
 	/** === Helper Methods === */
 
 	private void checkCol(int col) {
 		// Later.
 	}
+
+	private boolean horizontalCheck(int piece, int row, int col) {
+		int count = 1;
+
+		for (int i = col - 1; i >= 0; i--) {
+			if (_board[i][row] != piece) {
+				break;
+			}
+			count += 1;
+		}
+		for (int j = col + 1; j <= 7; j++) {
+			if (_board[j][row] != piece) {
+				break;
+			}
+		}
+		return (count >= 4);
+	}
+
+	private boolean verticalCheck(int piece, int row, int col) {
+		int count = 1;
+
+		for (int i = row - 1; i >= 0; i--) {
+			if (_board[col][i] != piece) {
+				break;
+			}
+			count += 1;
+		}
+		return (count >= 4);
+	}
+
+	private boolean diagonalCheck(int piece, int row, int col) {
+		int count = 0;
+		int i = col;
+		int j = row;
+		
+		while (i >= 0 && j >= 0) {
+			if (_board[i][j] != piece) {
+				break;
+			}
+			count += 1;
+			i--;
+			j--;
+		}
+		i = col;
+		j = row;
+		while (i <= 7 && j <= 7) {
+			if (_board[i][j] != piece) {
+				break;
+			}
+			count += 1;
+			i++;
+			j++;
+		}
+
+		if (count >= 4) {
+			return true;
+		} else {
+			count = 0;
+		}
+
+		i = col;
+		j = row;
+		while (i <= 7 && j >= 0) {
+			if (_board[i][j] != piece) {
+				break;
+			}
+			count += 1;
+			i++;
+			j--;
+		}
+		i = col;
+		j = row;
+		while (i >= 0 && j <= 7) {
+			if (_board[i][j] != piece) {
+				break;
+			}
+			count += 1;
+			i--;
+			j++;
+		}
+
+		return (count >= 4);
+	}
+
+
 
 }
