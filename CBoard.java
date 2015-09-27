@@ -3,41 +3,50 @@ package c4;
 class CBoard {
 
 	private int[][] _board;
+	private int _first;
 	private int _turn;
 	private int _winner;
 	// private final int black = -1;
 	// private final int red = 1;
 
+	protected final int ROWS = 6;
+	protected final int COLUMNS = 7;
+
 	CBoard() {
-		_board = new int[8][8];
-		_turn = 1;
+		_board = new int[ROWS][COLUMNS];
+		_turn = _first = 1;
+	}
+
+	int getPiece(int row, int col) {
+		return _board[row][col];
 	}
 
 	void newGame() {
-		_board = new int[8][8];
-		_turn = -1 * _turn;
+		_board = new int[ROWS][COLUMNS];
+		_first = 1 - 0;
+		_turn = _first;
 		_winner = 0;
 	}
 
-	void placePiece(int piece, int col) {
-		checkCol(col);
-		int row;
+	void placePiece(int piece, int row) {
+		checkrow(row);
+		int col = 0;
 
-		for (int i = 0; i < _board[col].length; i++) {
-			if (_board[col][i] == 0) {
-				_board[col][i] = piece;
-				row = i;
+		for (int i = 0; i < _board[row].length; i++) {
+			if (_board[row][i] == 0) {
+				_board[row][i] = piece;
+				col = i;
 				break;
 			}
 		}
 
-		_winner = checkWin(piece, row, col);
+		_winner = checkWin(piece, col, row);
 	}
 
-	int checkWin(int piece, int row, int col) {
-		if (horizontalCheck(piece, row, col) ||
-				verticalCheck(piece, row, col) ||
-				diagonalCheck(piece, row, col)) {
+	int checkWin(int piece, int col, int row) {
+		if (horizontalCheck(piece, col, row) ||
+				verticalCheck(piece, col, row) ||
+				diagonalCheck(piece, col, row)) {
 			return piece;
 		} else {
 			return 0;
@@ -47,32 +56,33 @@ class CBoard {
 
 	/** === Helper Methods === */
 
-	private void checkCol(int col) {
+
+	private void checkrow(int row) {
 		// Later.
 	}
 
-	private boolean horizontalCheck(int piece, int row, int col) {
-		int count = 1;
-
-		for (int i = col - 1; i >= 0; i--) {
-			if (_board[i][row] != piece) {
-				break;
-			}
-			count += 1;
-		}
-		for (int j = col + 1; j <= 7; j++) {
-			if (_board[j][row] != piece) {
-				break;
-			}
-		}
-		return (count >= 4);
-	}
-
-	private boolean verticalCheck(int piece, int row, int col) {
+	private boolean horizontalCheck(int piece, int col, int row) {
 		int count = 1;
 
 		for (int i = row - 1; i >= 0; i--) {
-			if (_board[col][i] != piece) {
+			if (_board[i][col] != piece) {
+				break;
+			}
+			count += 1;
+		}
+		for (int j = row + 1; j <= 7; j++) {
+			if (_board[j][col] != piece) {
+				break;
+			}
+		}
+		return (count >= 4);
+	}
+
+	private boolean verticalCheck(int piece, int col, int row) {
+		int count = 1;
+
+		for (int i = col - 1; i >= 0; i--) {
+			if (_board[row][i] != piece) {
 				break;
 			}
 			count += 1;
@@ -80,10 +90,10 @@ class CBoard {
 		return (count >= 4);
 	}
 
-	private boolean diagonalCheck(int piece, int row, int col) {
+	private boolean diagonalCheck(int piece, int col, int row) {
 		int count = 0;
-		int i = col;
-		int j = row;
+		int i = row;
+		int j = col;
 		
 		while (i >= 0 && j >= 0) {
 			if (_board[i][j] != piece) {
@@ -93,8 +103,8 @@ class CBoard {
 			i--;
 			j--;
 		}
-		i = col;
-		j = row;
+		i = row;
+		j = col;
 		while (i <= 7 && j <= 7) {
 			if (_board[i][j] != piece) {
 				break;
@@ -110,8 +120,8 @@ class CBoard {
 			count = 0;
 		}
 
-		i = col;
-		j = row;
+		i = row;
+		j = col;
 		while (i <= 7 && j >= 0) {
 			if (_board[i][j] != piece) {
 				break;
@@ -120,8 +130,8 @@ class CBoard {
 			i++;
 			j--;
 		}
-		i = col;
-		j = row;
+		i = row;
+		j = col;
 		while (i >= 0 && j <= 7) {
 			if (_board[i][j] != piece) {
 				break;
