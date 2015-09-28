@@ -9,15 +9,21 @@ class TextPlayer extends Player {
 
 	TextPlayer(CBoard game) {
 		super(game);
-		_inp = new Scanner(System.in);
+		_input = new Scanner(System.in);
 	}
 
 	void play() {
 		// _game.placePiece(1);
 		// display();
-		while (tru) {
+		while (true) {
 			display();
-
+			int col = Integer.parseInt(input());
+			if (isWonned()) {
+				System.out.println(String.format("Player %d Wins.", (whoWonned() == 1? 1: 2)));
+				return;
+			} else {
+				_game.placePiece(col);
+			} 
 		}
 	}
 
@@ -43,15 +49,24 @@ class TextPlayer extends Player {
 		}
 	}
 
-	private int input() {
+	private String input() {
 		while (true) {
             System.err.print(String.format("Player %d's turn > ",
             								(_game.player == 1? 1: 2)));
             System.err.flush();
-            if (! _input.hasNext()) {
-            	break;
+            // if (! _input.hasNext()) {
+            // 	break;
+            // }
+            try {
+            	String line = _input.nextLine();
+            	Integer.parseInt(line);
+            	return line;
+            } catch (NumberFormatException e) {
+            	System.out.println("Improper input, choose a column from 0 - 7.")
             }
-            
+			
+        }
+        return -1;
 	}
 
 }

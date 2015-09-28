@@ -57,7 +57,13 @@ class CBoard {
 		}
 	}
 
+	boolean isWonned() {
+		return (_winner != 0);
+	}
 
+	int whoWonned() {
+		return _winner;
+	}
 
 
 	/** === Helper Methods === */
