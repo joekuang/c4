@@ -9,7 +9,9 @@ To Do List:
 #Files
 Main.java
 - Main program
+
 CBoard.java
 - Contains the game state and gameplay methods
+
 Player.java > TextPlayer.java
 - Provides input for the game
