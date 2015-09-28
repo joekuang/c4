@@ -5,7 +5,7 @@ import java.util.NoSuchElementException;
 
 class TextPlayer extends Player {
 
-	private Scanner _inp;
+	private Scanner _input;
 
 	TextPlayer(CBoard game) {
 		super(game);
@@ -17,13 +17,12 @@ class TextPlayer extends Player {
 		// display();
 		while (true) {
 			display();
+			if (_game.isWonned()) {
+				System.out.println(String.format("Player %d Wins.", (_game.whoWonned() == 1? 1: 2)));
+				break;
+			}
 			int col = Integer.parseInt(input());
-			if (isWonned()) {
-				System.out.println(String.format("Player %d Wins.", (whoWonned() == 1? 1: 2)));
-				return;
-			} else {
-				_game.placePiece(col);
-			} 
+			_game.placePiece(col);
 		}
 	}
 
@@ -54,19 +53,18 @@ class TextPlayer extends Player {
             System.err.print(String.format("Player %d's turn > ",
             								(_game.player == 1? 1: 2)));
             System.err.flush();
-            // if (! _input.hasNext()) {
-            // 	break;
-            // }
+            if (! _input.hasNext()) {
+            	break;
+            }
             try {
             	String line = _input.nextLine();
             	Integer.parseInt(line);
             	return line;
             } catch (NumberFormatException e) {
-            	System.out.println("Improper input, choose a column from 0 - 7.")
+            	System.out.println("Improper input, choose a column from 0 - 7.");
             }
-			
         }
-        return -1;
+        return null;
 	}
 
 }
