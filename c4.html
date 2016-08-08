@@ -7,6 +7,9 @@
         <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
         <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" type="text/css" href="assets/c4.css">
+        <script src="assets/jquery-3.1.0.min.js"></script>
+        <script src="/socket.io/socket.io.js"></script>
+        <script src="assets/player.js"></script>
     </head>
     <body>
         &nbsp;
@@ -25,188 +28,273 @@
             </div>
             <hr>
             <br>
+            <div class="notification">
+            </div>
+            <br>
             <div class="board">
-                <div class="col">
+                <div class="col 0">
                     <div class="square">
                         <div class="circle">
-                            <div class="piece red">
+                            <div class="piece">
                             </div>
                         </div>
                     </div>
                     <div class="square">
                         <div class="circle">
+                            <div class="piece">
+                            </div>
                         </div>
                     </div>
                     <div class="square">
                         <div class="circle">
+                            <div class="piece">
+                            </div>
                         </div>
                     </div>
                     <div class="square">
                         <div class="circle">
+                            <div class="piece">
+                            </div>
                         </div>
                     </div>
                     <div class="square">
                         <div class="circle">
+                            <div class="piece">
+                            </div>
                         </div>
                     </div>
                     <div class="square">
                         <div class="circle">
-                        </div>
-                    </div>
-                </div
-                ><div class="col">
-                    <div class="square">
-                        <div class="circle">
-                        </div>
-                    </div>
-                    <div class="square">
-                        <div class="circle">
-                        </div>
-                    </div>
-                    <div class="square">
-                        <div class="circle">
-                        </div>
-                    </div>
-                    <div class="square">
-                        <div class="circle">
-                        </div>
-                    </div>
-                    <div class="square">
-                        <div class="circle">
-                        </div>
-                    </div>
-                    <div class="square">
-                        <div class="circle">
+                            <div class="piece">
+                            </div>
                         </div>
                     </div>
                 </div
-                ><div class="col">
+                ><div class="col 1">
                     <div class="square">
                         <div class="circle">
+                            <div class="piece">
+                            </div>
                         </div>
                     </div>
                     <div class="square">
                         <div class="circle">
+                            <div class="piece">
+                            </div>
                         </div>
                     </div>
                     <div class="square">
                         <div class="circle">
+                            <div class="piece">
+                            </div>
                         </div>
                     </div>
                     <div class="square">
                         <div class="circle">
+                            <div class="piece">
+                            </div>
                         </div>
                     </div>
                     <div class="square">
                         <div class="circle">
+                            <div class="piece">
+                            </div>
                         </div>
                     </div>
                     <div class="square">
                         <div class="circle">
-                        </div>
-                    </div>
-                </div
-                ><div class="col">
-                    <div class="square">
-                        <div class="circle">
-                        </div>
-                    </div>
-                    <div class="square">
-                        <div class="circle">
-                        </div>
-                    </div>
-                    <div class="square">
-                        <div class="circle">
-                        </div>
-                    </div>
-                    <div class="square">
-                        <div class="circle">
-                        </div>
-                    </div>
-                    <div class="square">
-                        <div class="circle">
-                        </div>
-                    </div>
-                    <div class="square">
-                        <div class="circle">
+                            <div class="piece">
+                            </div>
                         </div>
                     </div>
                 </div
-                ><div class="col">
+                ><div class="col 2">
                     <div class="square">
                         <div class="circle">
+                            <div class="piece">
+                            </div>
                         </div>
                     </div>
                     <div class="square">
                         <div class="circle">
+                            <div class="piece">
+                            </div>
                         </div>
                     </div>
                     <div class="square">
                         <div class="circle">
+                            <div class="piece">
+                            </div>
                         </div>
                     </div>
                     <div class="square">
                         <div class="circle">
+                            <div class="piece">
+                            </div>
                         </div>
                     </div>
                     <div class="square">
                         <div class="circle">
+                            <div class="piece">
+                            </div>
                         </div>
                     </div>
                     <div class="square">
                         <div class="circle">
-                        </div>
-                    </div>
-                </div
-                ><div class="col">
-                    <div class="square">
-                        <div class="circle">
-                        </div>
-                    </div>
-                    <div class="square">
-                        <div class="circle">
-                        </div>
-                    </div>
-                    <div class="square">
-                        <div class="circle">
-                        </div>
-                    </div>
-                    <div class="square">
-                        <div class="circle">
-                        </div>
-                    </div>
-                    <div class="square">
-                        <div class="circle">
-                        </div>
-                    </div>
-                    <div class="square">
-                        <div class="circle">
+                            <div class="piece">
+                            </div>
                         </div>
                     </div>
                 </div
-                ><div class="col">
+                ><div class="col 3">
                     <div class="square">
                         <div class="circle">
+                            <div class="piece">
+                            </div>
                         </div>
                     </div>
                     <div class="square">
                         <div class="circle">
+                            <div class="piece">
+                            </div>
                         </div>
                     </div>
                     <div class="square">
                         <div class="circle">
+                            <div class="piece">
+                            </div>
                         </div>
                     </div>
                     <div class="square">
                         <div class="circle">
+                            <div class="piece">
+                            </div>
                         </div>
                     </div>
                     <div class="square">
                         <div class="circle">
+                            <div class="piece">
+                            </div>
                         </div>
                     </div>
                     <div class="square">
                         <div class="circle">
+                            <div class="piece">
+                            </div>
+                        </div>
+                    </div>
+                </div
+                ><div class="col 4">
+                    <div class="square">
+                        <div class="circle">
+                            <div class="piece">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="square">
+                        <div class="circle">
+                            <div class="piece">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="square">
+                        <div class="circle">
+                            <div class="piece">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="square">
+                        <div class="circle">
+                            <div class="piece">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="square">
+                        <div class="circle">
+                            <div class="piece">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="square">
+                        <div class="circle">
+                            <div class="piece">
+                            </div>
+                        </div>
+                    </div>
+                </div
+                ><div class="col 5">
+                    <div class="square">
+                        <div class="circle">
+                            <div class="piece">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="square">
+                        <div class="circle">
+                            <div class="piece">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="square">
+                        <div class="circle">
+                            <div class="piece">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="square">
+                        <div class="circle">
+                            <div class="piece">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="square">
+                        <div class="circle">
+                            <div class="piece">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="square">
+                        <div class="circle">
+                            <div class="piece">
+                            </div>
+                        </div>
+                    </div>
+                </div
+                ><div class="col 6">
+                    <div class="square">
+                        <div class="circle">
+                            <div class="piece">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="square">
+                        <div class="circle">
+                            <div class="piece">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="square">
+                        <div class="circle">
+                            <div class="piece">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="square">
+                        <div class="circle">
+                            <div class="piece">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="square">
+                        <div class="circle">
+                            <div class="piece">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="square">
+                        <div class="circle">
+                            <div class="piece">
+                            </div>
                         </div>
                     </div>
                 </div>
