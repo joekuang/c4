@@ -1,7 +1,11 @@
 {
   "name": "c4",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "c4 game",
+  "author": "Joe Kuang",
+  "scripts": {
+    "start": "node c4.js"
+  },
   "dependencies": {
     "express": "^4.14.0",
     "socket.io": "^1.4.8"
