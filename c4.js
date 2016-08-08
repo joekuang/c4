@@ -45,6 +45,23 @@ io.on("connection", function(socket) {
         }
     });
 
+    socket.on('place', function(msg) {
+        if (c4.ongoing) {
+            var id = msg.slice(1);
+            if (clients.indexOf(id) === c4.player) {
+                var col = parseInt(msg[0]);
+                c4.placePiece(col);
+                display();
+                if (c4.isWon()) {
+                    c4.ongoing = false;
+                    var players = ['Red', 'Yellow'];
+                    io.emit('won', players[c4.whoWon()]);
+                    setTimeout(startNewGame, 10000);
+                }
+            }
+        }
+    });
+
 
 });
 
@@ -54,15 +71,14 @@ http.listen(3000, function(){
 });
 
 function startNewGame() {
+    c4.newGame();
+    clearDisplay();
+    c4.ongoing = false;
     if (clients.length >= 2) {
         io.to(clients[0]).emit('start', 'Playing as RED');
         io.to(clients[1]).emit('start', 'Playing as YELLOW');
-        c4.newGame();
         c4.ongoing = true;
-        c4.placePiece(0);
-        c4.placePiece(0);
     } else {
-        c4.ongoing = false;
         io.emit('wait');
     }
 }

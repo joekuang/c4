@@ -15,6 +15,7 @@ function Game() {
             }
             this.board.push(col);
         }
+        this.player = 0;
         this.winner = -1;
     }
 

@@ -18,6 +18,10 @@ $(document).ready(function() {
         $('.notification').text('Spectating...');
     });
 
+    socket.on('won', function(msg) {
+        $('.notification').text(msg + " wins. Next game starts in 10 seconds.");
+    });
+
     socket.on('clear', function() {
         $('.piece').each(function() {
             if ($(this).hasClass('fall')) {
@@ -63,11 +67,9 @@ $(document).ready(function() {
     });
 
     $(".col").click(function(e) {
-        // var pieces = $(this).find('.piece').toArray();
-        // pieces.reverse();
-        // $(pieces[0]).addClass('red fall');
-        // console.log("ok");
-
+        var num = $(this).attr("class").toString().split(' ')[1];
+        socket.emit('place', num + '/#' + socket.id);
+        // console.log(num + '/#' + socket.id);
         e.stopPropagation();
     });
 
