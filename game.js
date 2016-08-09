@@ -40,7 +40,20 @@ function Game() {
         return this.winner != -1;
     }
 
-    // === Helper Methods === 
+    // === Helper Methods ===
+
+    this.boardFull = function() {
+        if (this.ongoing) {
+            for (var i = 0; i < this.ROWS; i += 1) {
+                for (var j = 0; j < this.COLUMNS; j += 1) {
+                    if (this.getPiece(i, j) === -1) {
+                        return false;
+                    }
+                }
+            }
+        }
+        return true;
+    }
 
     this.switchPlayer = function() {
         this.player = 1 - this.player;
@@ -147,6 +160,7 @@ function Game() {
 
         return count >= 4;
     }
+
 }
 
 // var c4 = new Game();

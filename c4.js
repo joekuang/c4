@@ -56,6 +56,11 @@ io.on("connection", function(socket) {
                     var players = ['Red', 'Yellow'];
                     io.emit('won', players[c4.whoWon()]);
                     setTimeout(startNewGame, 10000);
+                } else if (c4.boardFull()) {
+                    c4.ongoing = false;
+                    var players = ['Red', 'Yellow'];
+                    io.emit('won', 'Neither player');
+                    setTimeout(startNewGame, 10000);
                 }
             }
         }
@@ -74,9 +79,11 @@ function startNewGame() {
     clearDisplay();
     c4.ongoing = false;
     if (clients.length >= 2) {
+        var player = ['Red', 'Yellow'];
         io.to(clients[0]).emit('start', 'Playing as RED');
         io.to(clients[1]).emit('start', 'Playing as YELLOW');
         c4.ongoing = true;
+        io.emit('turn', player[c4.player]);
     } else {
         io.emit('wait');
     }
