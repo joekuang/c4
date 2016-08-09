@@ -48,9 +48,9 @@ io.on("connection", function(socket) {
                 var col = parseInt(msg[0]);
                 c4.placePiece(col);
                 display();
-                var players = ['Red', 'Yellow'];
                 if (c4.isWon()) {
                     c4.ongoing = false;
+                    var players = ['Red', 'Yellow'];
                     io.emit('won', players[c4.whoWon()]);
                     var prev = clients.shift();
                     if (prev) {
