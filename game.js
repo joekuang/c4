@@ -17,10 +17,23 @@ function Game() {
         }
         this.player = 0;
         this.winner = -1;
+        this.ongoing = true;
+    }
+
+    this.currPlayer = function() {
+        return this.player;
+    }
+
+    this.inGame = function() {
+        return this.ongoing;
+    }
+
+    this.endGame = function() {
+        this.ongoing = false;
     }
 
     this.placePiece = function(col) {
-        if (! this.fullCol(col)) {
+        if (!this.fullCol(col) && !this.isWon()) {
             for (var i = 0; i < this.ROWS; i += 1) {
                 if (this.board[i][col] === -1) {
                     this.board[i][col] = this.player;
@@ -40,8 +53,6 @@ function Game() {
         return this.winner != -1;
     }
 
-    // === Helper Methods ===
-
     this.boardFull = function() {
         if (this.ongoing) {
             for (var i = 0; i < this.ROWS; i += 1) {
@@ -54,6 +65,8 @@ function Game() {
         }
         return true;
     }
+
+    // === Helper Methods ===
 
     this.switchPlayer = function() {
         this.player = 1 - this.player;
