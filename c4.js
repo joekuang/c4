@@ -31,17 +31,17 @@ io.on("connection", function(socket) {
     });
 
     socket.on('place', function(msg) {
-        if (c4.ongoing) {
+        if (c4.inGame()) {
             var id = msg.slice(1);
-            if (clients.indexOf(id) === c4.player) {
+            if (clients.indexOf(id) === c4.currPlayer()) {
                 var col = parseInt(msg[0]);
                 c4.placePiece(col);
                 display();
                 if (c4.isWon()) {
-                    endGame();
+                    c4.endGame();
                     restartGame();
                 } else if (c4.boardFull()) {
-                    endGame();
+                    c4.endGame();
                     restartGame('Neither player wins.');
                 }
             }
@@ -94,7 +94,7 @@ function display() {
     } else if (c4.inGame()) {
         io.to(clients[0]).emit('status', 'Playing as RED');
         io.to(clients[1]).emit('status', 'Playing as YELLOW');
-        io.emit('turn', player[c4.player] + "'s turn.");
+        io.emit('turn', player[c4.currPlayer()] + "'s turn.");
         spectators();
         displayBoard();
     } else {
