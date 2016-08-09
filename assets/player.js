@@ -6,33 +6,18 @@ $(document).ready(function() {
         // socket.emit('ready', socket.id);
     })
 
-    socket.on('start', function(msg) {
+    socket.on('status', function(msg) {
         $('.status').text(msg);
     });
 
     socket.on('turn', function(msg) {
-        $('.turn').text(msg + "'s turn.");
+        $('.turn').text(msg);
     });
 
     socket.on('wait', function() {
         $('.status').text('Waiting for players...');
         $('.turn').text('');
     })
-
-    socket.on('exit', function() {
-        $('.status').text('A player has left; new game in 10 seconds.');
-        $('.turn').text('');
-    });
-
-    socket.on('spectate', function() {
-        $('.status').text('Spectating...');
-        // $('.turn').text('');
-    });
-
-    socket.on('won', function(msg) {
-        $('.status').text(msg + " wins. Next game starts in 10 seconds.");
-        $('.turn').text('');
-    });
 
     socket.on('clear', function() {
         $('.piece').each(function() {
