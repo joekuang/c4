@@ -1,3 +1,6 @@
+// Idle Timer
+var timeout = 0;
+
 $(document).ready(function() {
     var socket = io();
 
@@ -55,8 +58,24 @@ $(document).ready(function() {
     $(".col").click(function(e) {
         var num = $(this).attr("class").toString().split(' ')[1];
         socket.emit('place', num + '/#' + socket.id);
-        // console.log(num + '/#' + socket.id);
         e.stopPropagation();
     });
+
+
+    // var timer = setInterval(function() {
+    //     timeout += 1;
+    //     if (timeout == 6) {
+    //         socket.emit('idle');
+    //         console.log('idle');
+    //     }
+    // }, 10000);
+
+    // $(this).mousemove(function() { 
+    //     timeout = 0;
+    // });
+
+    // $(this).keypress(function() { 
+    //     timeout = 0;
+    // });
 
 });
