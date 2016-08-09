@@ -64,9 +64,9 @@ io.on("connection", function(socket) {
 
 });
 
-http.listen(process.env.PORT || 3000, function(e){
-  console.log('listening on ' + e);
-  // console.log(__dirname);
+http.listen(process.env.PORT || 3000, function(){
+  console.log('Starting C4');
+  console.log(__dirname);
 });
 
 function startNewGame() {
