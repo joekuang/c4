@@ -109,7 +109,7 @@ function Game() {
         }
         i = row + 1;
         j = col + 1;
-        while (i < this.COLUMNS && j < this.COLUMNS) {
+        while (i < this.ROWS && j < this.COLUMNS) {
             if (this.board[i][j] != this.player) {
                 break;
             }
@@ -126,7 +126,7 @@ function Game() {
 
         i = row;
         j = col;
-        while (i < this.COLUMNS && j >= 0) {
+        while (i < this.ROWS && j >= 0) {
             if (this.board[i][j] != this.player) {
                 break;
             }
