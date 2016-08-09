@@ -1,19 +1,42 @@
+/* Queue */
+.queue {
+    width: 720px;
+    display: inline-block;
+    box-sizing: border-box;
+    /*position: absolute;*/
+}
+
+.wrap-red {
+    outline: 2px solid red;
+}
+
+.wrap-yellow {
+    outline: 2px solid yellow;
+}
+
+.icon {
+    height: 50px;
+    width: 50px;
+    margin: 5px;
+    float: left;
+}
+
 /* Notifications */
 .status {
-    vertical-align: center;
-    height: 25px;
+    vertical-align: middle;
+    height: 20px;
 }
 
 .turn {
-    vertical-align: center;
-    height: 25px;
+    vertical-align: middle;
+    height: 20px;
 }
 
 
 /* Board */
 .board {
     margin: 0 auto;
-    display: inline-block;
+    display: block;
 }
 
 .col {
@@ -91,6 +114,7 @@ body {
     margin: 0 auto;
     font-family: "Roboto", "Helvetica", sans serif;
     text-align: center;
+    position: relative;
 }
 
 .name {
@@ -123,6 +147,3 @@ body {
     color: #aaa;
     border-bottom: none;
 }
-
-
-
