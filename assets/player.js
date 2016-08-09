@@ -3,7 +3,7 @@ $(document).ready(function() {
 
     socket.on('connect', function() {
         console.log('Connected');
-        socket.emit('ready', socket.id);
+        // socket.emit('ready', socket.id);
     })
 
     socket.on('start', function(msg) {

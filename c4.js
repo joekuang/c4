@@ -75,17 +75,19 @@ http.listen(process.env.PORT || 3000, function(){
 });
 
 function startNewGame() {
-    c4.newGame();
-    clearDisplay();
-    c4.ongoing = false;
-    if (clients.length >= 2) {
-        var player = ['Red', 'Yellow'];
-        io.to(clients[0]).emit('start', 'Playing as RED');
-        io.to(clients[1]).emit('start', 'Playing as YELLOW');
-        c4.ongoing = true;
-        io.emit('turn', player[c4.player]);
-    } else {
-        io.emit('wait');
+    if (!c4.ongoing) {
+        c4.newGame();
+        clearDisplay();
+        c4.ongoing = false;
+        if (clients.length >= 2) {
+            var player = ['Red', 'Yellow'];
+            io.to(clients[0]).emit('start', 'Playing as RED');
+            io.to(clients[1]).emit('start', 'Playing as YELLOW');
+            c4.ongoing = true;
+            io.emit('turn', player[c4.player]);
+        } else {
+            io.emit('wait');
+        } 
     }
 }
 
@@ -117,6 +119,7 @@ function display() {
         var display_msg = col_str.join('-');
         io.emit('display', display_msg);
         io.emit('turn', player[c4.player]);
+        spectators();
     }
 }
 
