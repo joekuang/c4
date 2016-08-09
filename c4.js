@@ -19,8 +19,6 @@ io.on("connection", function(socket) {
 
     // Attempt to start a new game
     startNewGame();
-    // Notify spectators;
-    spectators();
     // Display
     display();
     
@@ -39,7 +37,6 @@ io.on("connection", function(socket) {
             }
             // Start a new game with existing clients.
             startNewGame();
-            spectators();
             display();
         }
     });
@@ -85,9 +82,7 @@ function startNewGame() {
             io.to(clients[1]).emit('start', 'Playing as YELLOW');
             c4.ongoing = true;
             io.emit('turn', player[c4.player]);
-        } else {
-            io.emit('wait');
-        } 
+        }
     }
 }
 
@@ -120,6 +115,8 @@ function display() {
         io.emit('display', display_msg);
         io.emit('turn', player[c4.player]);
         spectators();
+    } else {
+        io.emit('wait');
     }
 }
 
