@@ -27,16 +27,18 @@ io.on("connection", function(socket) {
         console.log("A user has disconnected");
         var index = clients.indexOf(socket.id);
         clients.splice(index, 1);
-
+        
         // If a ongoing player disconnects.
         if (c4.ongoing && index < 2) {
+            io.emit('exit');
+            c4.ongoing = false;
             // Move previous player to end of line.
             var prev = clients.shift();
             if (prev) {
                 clients.push(prev);
             }
             // Start a new game with existing clients.
-            startNewGame();
+            setTimeout(startNewGame, 10000);
             display();
         }
     });
@@ -57,7 +59,6 @@ io.on("connection", function(socket) {
                         clients.push(prev);
                     }
                     setTimeout(startNewGame, 10000);
-                    display();
                 } else if (c4.boardFull()) {
                     c4.ongoing = false;
                     io.emit('won', 'Neither player');
@@ -66,7 +67,6 @@ io.on("connection", function(socket) {
                         clients.push(prev);
                     }
                     setTimeout(startNewGame, 10000);
-                    display();
                 }
             }
         }
@@ -91,6 +91,9 @@ function startNewGame() {
             io.to(clients[1]).emit('start', 'Playing as YELLOW');
             c4.ongoing = true;
             io.emit('turn', player[c4.player]);
+            display();
+        } else {
+            io.emit('wait');
         }
     }
 }
@@ -124,8 +127,6 @@ function display() {
         io.emit('display', display_msg);
         io.emit('turn', player[c4.player]);
         spectators();
-    } else {
-        io.emit('wait');
     }
 }
 

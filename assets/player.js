@@ -19,6 +19,11 @@ $(document).ready(function() {
         $('.turn').text('');
     })
 
+    socket.on('exit', function() {
+        $('.status').text('A player has left; new game in 10 seconds.');
+        $('.turn').text('');
+    });
+
     socket.on('spectate', function() {
         $('.status').text('Spectating...');
         // $('.turn').text('');
