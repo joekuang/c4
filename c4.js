@@ -19,10 +19,8 @@ io.on("connection", function(socket) {
 
     // Attempt to start a new game
     startNewGame();
-
     // Notify spectators;
     spectators();
-
     // Display
     display();
     
@@ -42,6 +40,7 @@ io.on("connection", function(socket) {
             // Start a new game with existing clients.
             startNewGame();
             spectators();
+            display();
         }
     });
 
@@ -67,7 +66,7 @@ io.on("connection", function(socket) {
 
 http.listen(3000, function(){
   console.log('listening on *:3000');
-  console.log(__dirname);
+  // console.log(__dirname);
 });
 
 function startNewGame() {
@@ -91,35 +90,26 @@ function spectators() {
 
 function display() {
     if (c4.ongoing) {
-        var col_num = [0,0,0,0,0,0,0];
-        for (var j = 0; j < c4.COLUMNS; j += 1) {
-            for (var i = 0; i < c4.ROWS; i += 1) {
-                if (c4.getPiece(i, j) === -1) {
-                    break;
-                }
-                col_num[j] += 1;
-            }
-        } 
-
-        var col_first = [];
-        for (var j = 0; j < c4.COLUMNS; j += 1) {
-            var p = c4.getPiece(0, j);
-            if (p === -1) {
-                col_first.push('E');
-            } else if (p === 0) {
-                col_first.push('R');
-            } else if (p === 1) {
-                col_first.push('Y');
-            }
-        }
-
+        var player = ['Red', 'Yellow'];
         var col_str = [];
-        for (var k = 0; k < col_num.length; k += 1) {
-            col_str.push(col_first[k] + col_num[k].toString());
+        for (var j = 0; j < c4.COLUMNS; j += 1) {
+            var tmp = [];
+            for (var i = 0; i < c4.ROWS; i += 1) {
+                var p = c4.getPiece(i, j);
+                if (p === -1) {
+                    break;
+                } else if (p === 0) {
+                    tmp.push('R');
+                } else if (p === 1) {
+                    tmp.push('Y');
+                }
+            }
+            col_str.push(tmp.join(''));
         }
+
         var display_msg = col_str.join('-');
-        console.log(display_msg);
         io.emit('display', display_msg);
+        io.emit('turn', player[c4.player]);
     }
 }
 

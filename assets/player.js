@@ -7,19 +7,26 @@ $(document).ready(function() {
     })
 
     socket.on('start', function(msg) {
-        $('.notification').text(msg);
+        $('.status').text(msg);
+    });
+
+    socket.on('turn', function(msg) {
+        $('.turn').text(msg + "'s turn.");
     });
 
     socket.on('wait', function() {
-        $('.notification').text('Waiting for players...');
+        $('.status').text('Waiting for players...');
+        $('.turn').text('');
     })
 
     socket.on('spectate', function() {
-        $('.notification').text('Spectating...');
+        $('.status').text('Spectating...');
+        // $('.turn').text('');
     });
 
     socket.on('won', function(msg) {
-        $('.notification').text(msg + " wins. Next game starts in 10 seconds.");
+        $('.status').text(msg + " wins. Next game starts in 10 seconds.");
+        $('.turn').text('');
     });
 
     socket.on('clear', function() {
@@ -39,27 +46,16 @@ $(document).ready(function() {
     socket.on('display', function(msg) {
         var cols = $('.board').find('.col').toArray();
         var col_display = msg.split('-');
-        var col_first = [];
-        var col_num = [];
-        for (var i = 0; i < col_display.length; i += 1) {
-            col_first.push(col_display[i][0]);
-            col_num.push(parseInt(col_display[i][1], 10));
-        }
+        var players = { 'R':'red', 'Y':'yellow'};
 
-        var players = ['R', 'Y'];
-        var p_class = ['red', 'yellow'];
-        for (var j = 0; j < cols.length; j += 1) {
-            // console.log($(cols[i]).attr("class").toString());
-            if (col_num[j] === 0) {
-                continue;
-            } else {
-                var pieces = $(cols[j]).find('.piece').toArray();
-                pieces.reverse();
-                var p = players.indexOf(col_first[j]);
-                for (var k = 0; k < col_num[j]; k += 1) {
-                    $(pieces[k]).addClass(p_class[p]);
-                    p = 1 - p;
-                    $(pieces[k]).addClass('fall');
+        for (var i = 0; i < col_display.length; i += 1) {
+            var tmp = col_display[i];
+            var pieces = $(cols[i]).find('.piece').toArray();
+            pieces.reverse();
+            for (var j = 0; j < tmp.length; j += 1) {
+                if (!$(pieces[j]).hasClass('fall')) {
+                    $(pieces[j]).addClass('fall');
+                    $(pieces[j]).addClass(players[tmp[j]]);
                 }
             }
         }
