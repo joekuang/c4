@@ -1,3 +1,28 @@
+/* Choices */
+.choose {
+    width: 600px;
+    display: inline-block;
+}
+
+.choice {
+    display: inline-block;
+    background-color: red;
+    border-radius: 10%;
+    height: 100px;
+    width: 100px;
+    margin: 10px;
+    border: 1px solid white;
+}
+
+.choice:hover {
+    cursor: pointer;
+    border: 1px solid black;
+}
+
+.hide {
+    display: none;
+}
+
 /* Queue */
 .queue {
     width: 720px;
@@ -19,7 +44,7 @@
     width: 50px;
     margin: 5px;
     float: left;
-    border-radius: 30%;
+    border-radius: 20%;
     background-image: url('https://calanimagealpha.com/images/officers/joe.png');
     background-size: 50px 50px;
 

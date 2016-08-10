@@ -1,13 +1,47 @@
 // Idle Timer
 var timeout = 0;
+// Choose
+var chosen = false;
 
 $(document).ready(function() {
     var socket = io();
 
     socket.on('connect', function() {
         console.log('Connected');
-        // socket.emit('ready', socket.id);
-    })
+    });
+
+    socket.on('choices', function(msg) {
+        $('.choice').each(function() {
+            $(this).show();
+        });
+        var used = msg.split('-');
+        for (var i = 0; i < used.length; i += 1) {
+            $('.'+used[i]).hide();
+        }
+        if (used.length <= 12) {
+            $(".prompt").text("Choose an icon!");
+        } else {
+            $(".prompt").text("Room currently full! (Max capacity: 12)");
+        }
+    });
+
+    socket.on('taken', function() {
+        $('.prompt').text('Icon has already been taken, choose another!')
+    });
+
+    socket.on('start', function(choice) {
+        $(".choice").not($('.'+choice)).each(function() {
+            $(this).hide();
+        });
+        $(".choose").fadeOut(1500, function() {
+            $(this).hide();
+        });
+        setTimeout(function() {
+            $('.notification').show();
+            $('.board').show();
+            $('.queue').show();
+        }, 1500);
+    });
 
     socket.on('status', function(msg) {
         $('.status').text(msg);
@@ -55,6 +89,11 @@ $(document).ready(function() {
 
     });
 
+    $(".choice").click(function(e) {
+        var icon = $(this).attr("class").toString().split(' ')[1];
+        socket.emit('chosen', icon);
+    });
+
     $(".col").click(function(e) {
         var num = $(this).attr("class").toString().split(' ')[1];
         socket.emit('place', num + '/#' + socket.id);
@@ -65,9 +104,9 @@ $(document).ready(function() {
 
     var timer = setInterval(function() {
         timeout += 1;
-        if (timeout >= 2) {
+        if (timeout >= 4) {
             socket.emit('idle', '/#' + socket.id);
-            console.log('Idle for 2 minutes.');
+            console.log('Idle for 4 minutes.');
         }
     }, 60000);
 

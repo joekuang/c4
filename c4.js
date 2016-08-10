@@ -5,24 +5,46 @@ var http = require('http').Server(app);
 var io = require("socket.io")(http);
 var c4 = require("./game");
 var clients = [];
+var icons = {};
 
 app.get('/', function(req, res){
     res.sendFile(__dirname + '/c4.html');
 });
 
 io.on("connection", function(socket) {
-    console.log("A user has connected.")
-    clients.push(socket.id);
-    console.log(clients);
+    choose(socket);
 
-    startGame();
-    display();
+    socket.on("chosen", function(icon) {
+        var taken = false;
+        for (var key in icons) {
+            if (icon === icons[key]) {
+                taken = true;
+            }
+        }
+        if (!taken) {
+            console.log("A user has connected.")
+            clients.push(socket.id);
+            icons[socket.id] = icon;
+            console.log(clients);
+
+            io.to(socket.id).emit('start', icon);
+            startGame();
+            display();
+        } else {
+            choose(socket);
+            io.to(socket.id).emit('taken');
+        }
+    
+    });
+
     
     socket.on("disconnect", function() {
         console.log("A user has disconnected");
+        delete icons[socket.id];
         var index = clients.indexOf(socket.id);
         clients.splice(index, 1);
         console.log(clients);
+        console.log(icons);
         if (c4.inGame() && index < 2) {
             c4.endGame();
             restartGame("A player has left.");
@@ -52,7 +74,7 @@ io.on("connection", function(socket) {
         if (index != -1) {
             if (c4.inGame() && index === c4.currPlayer()) {
                 io.to(id).emit('status', "You have been disconnected for idle activity.");
-                io.to(id).emit('turn', "An ongoing turn has timeout of 2 minutes.");
+                io.to(id).emit('turn', "An ongoing turn has timeout of 4 minutes.");
                 socket.disconnect();
             }
         }
@@ -83,7 +105,6 @@ function restartGame(status) {
         clients.push(prev);
     }
     setTimeout(function() {
-        // console.log("ok?")
         startGame();
         display();
     }, 10000);
@@ -114,6 +135,10 @@ function display() {
     }
 }
 
+function displayQueue() {
+
+}
+
 function displayBoard() {
     var col_str = [];
     for (var j = 0; j < c4.COLUMNS; j += 1) {
@@ -141,4 +166,14 @@ function emitClients(e, msg) {
     for (var i = 0; i < clients.length; i += 1) {
         io.to(clients[i]).emit(e, msg);
     }
+}
+
+function choose(socket) {
+    var used = ["lonely"];
+    console.log(icons);
+    for (var key in icons) {
+        used.push(icons[key]);
+    }
+    console.log(used);
+    io.to(socket.id).emit('choices', used.join('-'));
 }
