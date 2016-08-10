@@ -39,16 +39,18 @@ io.on("connection", function(socket) {
 
     
     socket.on("disconnect", function() {
-        console.log("A user has disconnected");
-        delete icons[socket.id];
         var index = clients.indexOf(socket.id);
-        clients.splice(index, 1);
-        console.log(icons);
-        console.log(clients);
-        displayQueue();
-        if (c4.inGame() && index < 2) {
-            c4.endGame();
-            restartGame("A player has left.");
+        if (index >= 0) {
+            console.log("A user has disconnected");
+            delete icons[socket.id];
+            clients.splice(index, 1);
+            console.log(icons);
+            console.log(clients);
+            displayQueue();
+            if (c4.inGame() && index < 2) {
+                c4.endGame();
+                restartGame("A player has left.");
+            }
         }
     });
 
