@@ -55,7 +55,7 @@ function Game() {
     }
 
     this.boardFull = function() {
-        if (this.ongoing) {
+        if (this.inGame() && !this.isWon()) {
             for (var i = 0; i < this.ROWS; i += 1) {
                 for (var j = 0; j < this.COLUMNS; j += 1) {
                     if (this.getPiece(i, j) === -1) {

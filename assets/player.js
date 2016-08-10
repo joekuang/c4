@@ -58,24 +58,25 @@ $(document).ready(function() {
     $(".col").click(function(e) {
         var num = $(this).attr("class").toString().split(' ')[1];
         socket.emit('place', num + '/#' + socket.id);
+        console.log(num);
         e.stopPropagation();
     });
 
 
-    // var timer = setInterval(function() {
-    //     timeout += 1;
-    //     if (timeout == 6) {
-    //         socket.emit('idle');
-    //         console.log('idle');
-    //     }
-    // }, 10000);
+    var timer = setInterval(function() {
+        timeout += 1;
+        if (timeout >= 2) {
+            socket.emit('idle', '/#' + socket.id);
+            console.log('Idle for 2 minutes.');
+        }
+    }, 60000);
 
-    // $(this).mousemove(function() { 
-    //     timeout = 0;
-    // });
+    $(this).mousemove(function() { 
+        timeout = 0;
+    });
 
-    // $(this).keypress(function() { 
-    //     timeout = 0;
-    // });
+    $(this).keypress(function() { 
+        timeout = 0;
+    });
 
 });

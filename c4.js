@@ -23,7 +23,6 @@ io.on("connection", function(socket) {
         var index = clients.indexOf(socket.id);
         clients.splice(index, 1);
         console.log(clients);
-        
         if (c4.inGame() && index < 2) {
             c4.endGame();
             restartGame("A player has left.");
@@ -48,6 +47,17 @@ io.on("connection", function(socket) {
         }
     });
 
+    socket.on('idle', function(id) {
+        var index = clients.indexOf(id);
+        if (index != -1) {
+            if (c4.inGame() && index === c4.currPlayer()) {
+                io.to(id).emit('status', "You have been disconnected for idle activity.");
+                io.to(id).emit('turn', "An ongoing turn has timeout of 2 minutes.");
+                socket.disconnect();
+            }
+        }
+    });
+
 });
 
 http.listen(process.env.PORT || 3000, function(){
@@ -65,9 +75,9 @@ function startGame() {
 function restartGame(status) {
     status = status || '';
     if (status) {
-        io.emit('status', status);
+        emitClients('status', status);
     }
-    io.emit('turn', "Next game begins soon...");
+    emitClients('turn', "Next game begins soon...");
     var prev = clients.shift();
     if (prev) {
         clients.push(prev);
@@ -89,18 +99,18 @@ function spectators() {
 function display() {
     var players = ['Red', 'Yellow'];
     if (c4.isWon()) {
-        io.emit('status', players[c4.whoWon()] + " wins.");
-        io.emit('turn', "Next game begins soon...");
+        emitClients('status', players[c4.whoWon()] + " wins.");
+        emitClients('turn', "Next game begins soon...");
         displayBoard();
     } else if (c4.inGame()) {
         io.to(clients[0]).emit('status', 'Playing as RED');
         io.to(clients[1]).emit('status', 'Playing as YELLOW');
-        io.emit('turn', players[c4.currPlayer()] + "'s turn.");
+        emitClients('turn', players[c4.currPlayer()] + "'s turn.");
         spectators();
         displayBoard();
     } else {
         clearDisplay();
-        io.emit('wait');
+        emitClients('wait');
     }
 }
 
@@ -120,9 +130,15 @@ function displayBoard() {
         }
         col_str.push(tmp.join(''));
     }
-    io.emit('display', col_str.join('-'));
+    emitClients('display', col_str.join('-'));
 }
 
 function clearDisplay() {
-    io.emit('clear');
+    emitClients('clear');
+}
+
+function emitClients(e, msg) {
+    for (var i = 0; i < clients.length; i += 1) {
+        io.to(clients[i]).emit(e, msg);
+    }
 }
