@@ -96,6 +96,7 @@ $(document).ready(function() {
 
         $('.icon').each(function() { 
             $(this).attr('class', 'icon');
+            $(this).removeAttr('id');
         });
 
         for (var i = 0; i < queue.length; i += 1) {
