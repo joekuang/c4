@@ -16,7 +16,9 @@ $(document).ready(function() {
         });
         var used = msg.split('-');
         for (var i = 0; i < used.length; i += 1) {
-            $('.'+used[i]).hide();
+            if (used[i]) {
+                $('.'+used[i]).hide();
+            }
         }
         if (used.length <= 12) {
             $(".prompt").text("Choose an icon!");
