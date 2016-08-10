@@ -25,11 +25,13 @@
 .status {
     vertical-align: middle;
     height: 20px;
+    padding: 5px;
 }
 
 .turn {
     vertical-align: middle;
     height: 20px;
+    padding: 5px;
 }
 
 

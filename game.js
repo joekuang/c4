@@ -30,6 +30,7 @@ function Game() {
 
     this.endGame = function() {
         this.ongoing = false;
+        this.winner = -1;
     }
 
     this.placePiece = function(col) {

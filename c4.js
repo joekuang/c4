@@ -73,6 +73,7 @@ function restartGame(status) {
         clients.push(prev);
     }
     setTimeout(function() {
+        // console.log("ok?")
         startGame();
         display();
     }, 10000);
@@ -86,18 +87,19 @@ function spectators() {
 }
 
 function display() {
+    var players = ['Red', 'Yellow'];
     if (c4.isWon()) {
-        var players = ['Red', 'Yellow'];
         io.emit('status', players[c4.whoWon()] + " wins.");
         io.emit('turn', "Next game begins soon...");
         displayBoard();
     } else if (c4.inGame()) {
         io.to(clients[0]).emit('status', 'Playing as RED');
         io.to(clients[1]).emit('status', 'Playing as YELLOW');
-        io.emit('turn', player[c4.currPlayer()] + "'s turn.");
+        io.emit('turn', players[c4.currPlayer()] + "'s turn.");
         spectators();
         displayBoard();
     } else {
+        clearDisplay();
         io.emit('wait');
     }
 }
