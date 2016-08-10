@@ -32,6 +32,7 @@ $(document).ready(function() {
     });
 
     socket.on('start', function(choice) {
+        chosen = true;
         $(".choice").not($(document.getElementById(choice))).each(function() {
             $(this).hide();
         });
@@ -110,8 +111,10 @@ $(document).ready(function() {
     });
 
     $(".choice").click(function(e) {
-        var icon = $(this).attr("id");
-        socket.emit('chosen', icon);
+        if (!chosen) {
+            var icon = $(this).attr("id");
+            socket.emit('chosen', icon);
+        }
     });
 
     $(".col").click(function(e) {
