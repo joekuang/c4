@@ -4,6 +4,10 @@
     display: inline-block;
 }
 
+.prompt {
+    height: 20px;
+}
+
 .choice {
     display: inline-block;
     border-radius: 10%;
