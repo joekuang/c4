@@ -20,7 +20,7 @@ $(document).ready(function() {
                 $(document.getElementById(used[i])).hide();
             }
         }
-        if (used.length <= 12) {
+        if (used.length < 12) {
             $(".prompt").text("Choose an icon!");
         } else {
             $(".prompt").text("Room currently full; check back later!");
@@ -131,6 +131,7 @@ $(document).ready(function() {
         if (timeout >= 4) {
             socket.emit('idle', '/#' + socket.id);
             console.log('Idle for 4 minutes.');
+            timeout = 0;
         }
     }, 60000);
 
