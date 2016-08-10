@@ -17,7 +17,7 @@ $(document).ready(function() {
         var used = msg.split('-');
         for (var i = 0; i < used.length; i += 1) {
             if (used[i]) {
-                document.getElementById(used[i]).hide();
+                $(document.getElementById(used[i])).hide();
             }
         }
         if (used.length <= 12) {
@@ -32,7 +32,7 @@ $(document).ready(function() {
     });
 
     socket.on('start', function(choice) {
-        $(".choice").not(document.getElementById(choice)).each(function() {
+        $(".choice").not($(document.getElementById(choice))).each(function() {
             $(this).hide();
         });
         $(".choose").fadeOut(1500, function() {
