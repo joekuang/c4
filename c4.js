@@ -133,10 +133,16 @@ function display() {
         clearDisplay();
         emitClients('wait');
     }
+    displayQueue();
 }
 
 function displayQueue() {
-
+    var queue = [];
+    for (var i = 0; i < clients.length; i += 1) {
+        queue.push(icons[clients[i]]);
+    }
+    console.log(queue);
+    emitClients('queue', queue.join('-'));
 }
 
 function displayBoard() {

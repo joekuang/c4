@@ -86,7 +86,20 @@ $(document).ready(function() {
                 }
             }
         }
+    });
 
+    socket.on('queue', function(msg) {
+        var queue = msg.split('-');
+        var icons = $('.queue').find('.icon').toArray();
+        for (var i = 0; i < queue.length; i += 1) {
+            $(icons[i]).attr('class', 'icon');
+            $(icons[i]).addClass(queue[i]);
+            if (i === 0) {
+                $(icons[i]).addClass('wrap-red');
+            } else if (i === 1) {
+                $(icons[i]).addClass('wrap-yellow');
+            }
+        }
     });
 
     $(".choice").click(function(e) {
