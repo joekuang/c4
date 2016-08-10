@@ -23,7 +23,8 @@ $(document).ready(function() {
         if (used.length <= 12) {
             $(".prompt").text("Choose an icon!");
         } else {
-            $(".prompt").text("Room currently full! (Max capacity: 12)");
+            $(".prompt").text("Room currently full; check back later!");
+            chosen = true;
         }
     });
 
