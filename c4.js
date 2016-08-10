@@ -31,8 +31,8 @@ io.on("connection", function(socket) {
             startGame();
             display();
         } else {
-            choose(socket);
             io.to(socket.id).emit('taken');
+            choose(socket);
         }
     
     });
@@ -76,8 +76,8 @@ io.on("connection", function(socket) {
         var index = clients.indexOf(id);
         if (index != -1) {
             if (c4.inGame() && index === c4.currPlayer()) {
-                io.to(id).emit('status', "You have been disconnected for idle activity.");
-                io.to(id).emit('turn', "An ongoing turn has timeout of 4 minutes.");
+                // io.to(id).emit('status', "You have been disconnected.");
+                io.to(id).emit('turn', "An ongoing turn has idle timeout of 5 minutes.");
                 socket.disconnect();
             }
         }

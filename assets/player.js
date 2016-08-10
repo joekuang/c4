@@ -111,6 +111,16 @@ $(document).ready(function() {
         }
     });
 
+    socket.on("disconnect", function() {
+        console.log("Disconnected");
+        if ($('.notification').is(":visible")) {
+            $('.status').text('You have been disconnected.');
+        } else {
+            $('.prompt').text('You have been disconnected.');
+        }
+
+    });
+
     $(".choice").click(function(e) {
         if (!chosen) {
             var icon = $(this).attr("id");
@@ -128,9 +138,9 @@ $(document).ready(function() {
 
     var timer = setInterval(function() {
         timeout += 1;
-        if (timeout >= 4) {
+        if (timeout >= 5) {
             socket.emit('idle', '/#' + socket.id);
-            console.log('Idle for 4 minutes.');
+            console.log('Idle for 5 minutes.');
             timeout = 0;
         }
     }, 60000);
