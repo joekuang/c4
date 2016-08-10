@@ -25,7 +25,8 @@ io.on("connection", function(socket) {
             console.log("A user has connected.")
             clients.push(socket.id);
             icons[socket.id] = icon;
-
+            console.log(icons);
+            console.log(clients);
             io.to(socket.id).emit('start', icon);
             startGame();
             display();
@@ -42,6 +43,8 @@ io.on("connection", function(socket) {
         delete icons[socket.id];
         var index = clients.indexOf(socket.id);
         clients.splice(index, 1);
+        console.log(icons);
+        console.log(clients);
         displayQueue();
         if (c4.inGame() && index < 2) {
             c4.endGame();
@@ -176,5 +179,6 @@ function choose(socket) {
     for (var key in icons) {
         used.push(icons[key]);
     }
+    used.shift();
     io.to(socket.id).emit('choices', used.join('-'));
 }
