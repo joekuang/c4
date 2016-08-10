@@ -175,10 +175,10 @@ function emitClients(e, msg) {
 }
 
 function choose(socket) {
-    var used = ["lonely"];
+    var used = [];
     for (var key in icons) {
         used.push(icons[key]);
     }
-    used.shift();
     io.to(socket.id).emit('choices', used.join('-'));
 }
+
