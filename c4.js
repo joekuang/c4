@@ -21,7 +21,7 @@ io.on("connection", function(socket) {
                 taken = true;
             }
         }
-        if (!taken) {
+        if (!taken && clients.indexOf(socket.id) === -1 && !icons[socket.id]) {
             console.log("A user has connected.")
             clients.push(socket.id);
             icons[socket.id] = icon;
