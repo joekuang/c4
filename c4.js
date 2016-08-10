@@ -25,7 +25,6 @@ io.on("connection", function(socket) {
             console.log("A user has connected.")
             clients.push(socket.id);
             icons[socket.id] = icon;
-            console.log(clients);
 
             io.to(socket.id).emit('start', icon);
             startGame();
@@ -43,8 +42,7 @@ io.on("connection", function(socket) {
         delete icons[socket.id];
         var index = clients.indexOf(socket.id);
         clients.splice(index, 1);
-        console.log(clients);
-        console.log(icons);
+        displayQueue();
         if (c4.inGame() && index < 2) {
             c4.endGame();
             restartGame("A player has left.");
@@ -141,7 +139,6 @@ function displayQueue() {
     for (var i = 0; i < clients.length; i += 1) {
         queue.push(icons[clients[i]]);
     }
-    console.log(queue);
     emitClients('queue', queue.join('-'));
 }
 
@@ -176,10 +173,8 @@ function emitClients(e, msg) {
 
 function choose(socket) {
     var used = ["lonely"];
-    console.log(icons);
     for (var key in icons) {
         used.push(icons[key]);
     }
-    console.log(used);
     io.to(socket.id).emit('choices', used.join('-'));
 }

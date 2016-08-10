@@ -1,15 +1,51 @@
-.rem {
-    background-color: black;
+/*. {
+    background-image: url('');
+}*/
+
+.cat {
+    background-image: url('/assets/icons/cat.jpg');
 }
 
-.ram {
-    background-color: blue;
+.duo {
+    background-image: url('/assets/icons/duo.jpg');
 }
 
-.misaka {
-    background-color: yellow;
+.emilia {
+    background-image: url('/assets/icons/emilia.jpg');
+}
+
+.haqua {
+    background-image: url('/assets/icons/haqua.jpg');
 }
 
 .holo {
-    background-color: orange;
+    background-image: url('/assets/icons/holo.jpg');
+}
+
+.ok {
+    background-image: url('/assets/icons/ok.jpg');
+}
+
+.okita {
+    background-image: url('/assets/icons/okita.jpg');
+}
+
+.misaka {
+    background-image: url('/assets/icons/misaka.jpg');
+}
+
+.pika {
+    background-image: url('/assets/icons/pika.jpg');
+}
+
+.saber {
+    background-image: url('/assets/icons/saber.jpg');
+}
+
+.verniy {
+    background-image: url('/assets/icons/verniy.jpg');
+}
+
+.wow {
+    background-image: url('/assets/icons/wow.jpg');
 }

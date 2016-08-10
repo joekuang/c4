@@ -6,12 +6,12 @@
 
 .choice {
     display: inline-block;
-    background-color: red;
     border-radius: 10%;
     height: 100px;
     width: 100px;
     margin: 10px;
     border: 1px solid white;
+    background-size: 100px 100px;
 }
 
 .choice:hover {
@@ -44,7 +44,7 @@
     width: 50px;
     margin: 5px;
     float: left;
-    border-radius: 20%;
+    border-radius: 30%;
     background-size: 50px 50px;
 
 }
