@@ -2,50 +2,50 @@
     background-image: url('');
 }*/
 
-.cat {
+#cat {
     background-image: url('/assets/icons/cat.jpg');
 }
 
-.duo {
+#duo {
     background-image: url('/assets/icons/duo.jpg');
 }
 
-.emilia {
+#emilia {
     background-image: url('/assets/icons/emilia.jpg');
 }
 
-.haqua {
+#haqua {
     background-image: url('/assets/icons/haqua.jpg');
 }
 
-.holo {
+#holo {
     background-image: url('/assets/icons/holo.jpg');
 }
 
-.ok {
+#ok {
     background-image: url('/assets/icons/ok.jpg');
 }
 
-.okita {
+#okita {
     background-image: url('/assets/icons/okita.jpg');
 }
 
-.misaka {
+#misaka {
     background-image: url('/assets/icons/misaka.jpg');
 }
 
-.pika {
+#pika {
     background-image: url('/assets/icons/pika.jpg');
 }
 
-.saber {
+#saber {
     background-image: url('/assets/icons/saber.jpg');
 }
 
-.verniy {
+#verniy {
     background-image: url('/assets/icons/verniy.jpg');
 }
 
-.wow {
+#wow {
     background-image: url('/assets/icons/wow.jpg');
 }

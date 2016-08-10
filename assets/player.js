@@ -17,7 +17,7 @@ $(document).ready(function() {
         var used = msg.split('-');
         for (var i = 0; i < used.length; i += 1) {
             if (used[i]) {
-                $('.'+used[i]).hide();
+                document.getElementById(used[i]).hide();
             }
         }
         if (used.length <= 12) {
@@ -32,7 +32,7 @@ $(document).ready(function() {
     });
 
     socket.on('start', function(choice) {
-        $(".choice").not($('.'+choice)).each(function() {
+        $(".choice").not(document.getElementById(choice)).each(function() {
             $(this).hide();
         });
         $(".choose").fadeOut(1500, function() {
@@ -99,7 +99,7 @@ $(document).ready(function() {
         });
 
         for (var i = 0; i < queue.length; i += 1) {
-            $(icons[i]).addClass(queue[i]);
+            $(icons[i]).attr('id', queue[i]);
             if (i === 0) {
                 $(icons[i]).addClass('wrap-red');
             } else if (i === 1) {
@@ -109,7 +109,7 @@ $(document).ready(function() {
     });
 
     $(".choice").click(function(e) {
-        var icon = $(this).attr("class").toString().split(' ')[1];
+        var icon = $(this).attr("id");
         socket.emit('chosen', icon);
     });
 
