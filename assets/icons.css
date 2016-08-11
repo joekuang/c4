@@ -22,16 +22,32 @@
     background-image: url('/assets/icons/holo.jpg');
 }
 
+#karen {
+    background-image: url('/assets/icons/karen.jpg');
+}
+
+#ko {
+    background-image: url('/assets/icons/ko.jpg');
+}
+
+#kurisu {
+    background-image: url('/assets/icons/kurisu.jpg');
+}
+
+#majestic-cat {
+    background-image: url('/assets/icons/majestic-cat.jpg');
+}
+
+#misaka {
+    background-image: url('/assets/icons/misaka.jpg');
+}
+
 #ok {
     background-image: url('/assets/icons/ok.jpg');
 }
 
 #okita {
     background-image: url('/assets/icons/okita.jpg');
-}
-
-#misaka {
-    background-image: url('/assets/icons/misaka.jpg');
 }
 
 #pika {
@@ -42,10 +58,26 @@
     background-image: url('/assets/icons/saber.jpg');
 }
 
+#savage {
+    background-image: url('/assets/icons/savage.jpg');
+}
+
+#scarf {
+    background-image: url('/assets/icons/scarf.jpg');
+}
+
 #verniy {
     background-image: url('/assets/icons/verniy.jpg');
 }
 
+#volibear {
+    background-image: url('/assets/icons/volibear.jpg');
+}
+
 #wow {
     background-image: url('/assets/icons/wow.jpg');
+}
+
+#zhi {
+    background-image: url('/assets/icons/zhi.jpg');
 }

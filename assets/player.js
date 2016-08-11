@@ -20,7 +20,7 @@ $(document).ready(function() {
                 $(document.getElementById(used[i])).hide();
             }
         }
-        if (used.length < 12) {
+        if (used.length < 13) {
             $(".prompt").text("Choose an icon!");
         } else {
             $(".prompt").text("Room currently full; check back later!");
