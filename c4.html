@@ -39,7 +39,11 @@
             </div>
             <hr>
             <div class="choose">
-                <p class="prompt"></p>
+                <p class="prompt">Please enable Javascript to play!</p>
+                <script>        
+                    p = document.getElementsByClassName("prompt");
+                    p[0].innerText = "";
+                </script>
                 <div class="choice" id="zhi">
                 </div>
                 <div class="choice" id="wow">
