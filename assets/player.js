@@ -57,7 +57,7 @@ $(document).ready(function() {
 
     socket.on('wait', function() {
         $('.status').text('Waiting for players...');
-        $('.turn').text('');
+        $('.turn').text('Open this in another tab for a round against yourself');
     })
 
     socket.on('clear', function() {
